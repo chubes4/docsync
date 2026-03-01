@@ -8,10 +8,26 @@
 .docsync-toc {
 	position: sticky;
 	top: 2rem;
-	padding: var(--docsync-space-lg, 1.5rem);
+	max-height: calc(100vh - 4rem);
+	overflow-y: auto;
+	padding: var(--docsync-space-md, 0.75rem);
 	background: var(--docsync-background-card, #ffffff);
 	border: 1px solid var(--docsync-border-light, #e9ecef);
 	border-radius: 8px;
+}
+
+/* Scrollbar styling for TOC */
+.docsync-toc::-webkit-scrollbar {
+	width: 4px;
+}
+
+.docsync-toc::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.docsync-toc::-webkit-scrollbar-thumb {
+	background: var(--docsync-border-light, #e9ecef);
+	border-radius: 2px;
 }
 
 .docsync-toc-title {
