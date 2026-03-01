@@ -178,7 +178,8 @@ class Archive {
 	/**
 	 * Render project page content (depth 0 term)
 	 * 
-	 * Shows hierarchical documentation for the project.
+	 * Shows a navigation tree via the docsync/navigation block,
+	 * followed by hierarchical documentation cards.
 	 */
 	private static function render_top_level_project_content( $term ) {
 		$direct_posts = self::get_direct_posts_for_term( $term, self::DOCS_PER_SECTION );
@@ -189,6 +190,13 @@ class Archive {
 			self::render_no_content_message( $term );
 			return;
 		}
+
+		// Render the navigation block — auto-detects project from taxonomy context.
+		$nav_block = sprintf(
+			'<!-- wp:docsync/navigation {"mode":"tree","projectSlug":"%s"} /-->',
+			esc_attr( $term->slug )
+		);
+		echo do_blocks( $nav_block );
 
 		// Render posts directly under this term (no header)
 		if ( $direct_posts->have_posts() ) {
