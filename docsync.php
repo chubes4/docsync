@@ -25,6 +25,7 @@ require_once DOCSYNC_PATH . 'vendor/autoload.php';
 
 use DocSync\Api\Routes;
 use DocSync\Abilities\Abilities;
+use DocSync\Blocks\NavigationBlock;
 use DocSync\Core\Assets;
 use DocSync\Core\Documentation;
 use DocSync\Core\Project;
@@ -33,7 +34,6 @@ use DocSync\Core\Breadcrumbs;
 use DocSync\Fields\RepositoryFields;
 use DocSync\Fields\InstallTracker;
 use DocSync\Templates\DocumentationLayout;
-use DocSync\Templates\ProjectTree;
 use DocSync\Templates\RelatedPosts;
 use DocSync\Templates\Archive;
 use DocSync\Templates\ProjectCard;
@@ -61,6 +61,15 @@ SettingsPage::init();
 DocumentationColumns::init();
 
 /**
+ * Block registration — always available regardless of theme support.
+ *
+ * The docsync/navigation block is a standalone Gutenberg block that can
+ * be used in any context. Theme templates use do_blocks() to render it
+ * in the sidebar, and editors can drop it into any page.
+ */
+NavigationBlock::init();
+
+/**
  * Template layer — only loads when the active theme declares support.
  *
  * Themes opt in with: add_theme_support( 'docsync-templates' );
@@ -76,7 +85,6 @@ add_action( 'after_setup_theme', function() {
 
 	add_action( 'init', function() {
 		DocumentationLayout::init();
-		ProjectTree::init();
 		RelatedPosts::init();
 		Breadcrumbs::init();
 		Archive::init();

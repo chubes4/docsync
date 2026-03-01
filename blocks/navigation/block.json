@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "docsync/navigation",
+	"version": "1.0.0",
+	"title": "DocSync Navigation",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "Context-aware documentation navigation. Shows table of contents on single doc pages, project tree on archives.",
+	"textdomain": "docsync",
+	"attributes": {
+		"mode": {
+			"type": "string",
+			"default": "auto",
+			"enum": [ "auto", "toc", "tree" ]
+		},
+		"projectSlug": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": false,
+		"className": true
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:../../inc/Blocks/render-navigation.php"
+}
