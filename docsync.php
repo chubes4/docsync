@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'DOCSYNC_VERSION', '0.10.0' );
+define( 'DOCSYNC_VERSION', '1.1.0' );
 define( 'DOCSYNC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DOCSYNC_URL', plugin_dir_url( __FILE__ ) );
 
