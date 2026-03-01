@@ -154,6 +154,10 @@ class Assets {
 
 	/**
 	 * Enqueue assets for single documentation pages.
+	 *
+	 * Navigation sidebar assets (project tree, TOC) are now enqueued
+	 * by the docsync/navigation block itself when it renders.
+	 * This method only handles layout and related posts styles.
 	 */
 	private static function enqueue_single_assets() {
 		if ( ! is_singular( 'documentation' ) ) {
@@ -168,8 +172,6 @@ class Assets {
 		);
 
 		self::enqueue_layout_assets();
-		self::enqueue_project_tree_assets();
-		self::enqueue_toc_assets();
 	}
 
 	/**
@@ -181,46 +183,6 @@ class Assets {
 			DOCSYNC_URL . 'assets/css/layout.css',
 			[ 'docsync-tokens' ],
 			filemtime( DOCSYNC_PATH . 'assets/css/layout.css' )
-		);
-	}
-
-	/**
-	 * Enqueue project tree sidebar assets.
-	 */
-	private static function enqueue_project_tree_assets() {
-		wp_enqueue_style(
-			'docsync-project-tree',
-			DOCSYNC_URL . 'assets/css/project-tree.css',
-			[ 'docsync-tokens' ],
-			filemtime( DOCSYNC_PATH . 'assets/css/project-tree.css' )
-		);
-
-		wp_enqueue_script(
-			'docsync-project-tree',
-			DOCSYNC_URL . 'assets/js/docsync-project-tree.js',
-			[],
-			filemtime( DOCSYNC_PATH . 'assets/js/docsync-project-tree.js' ),
-			true
-		);
-	}
-
-	/**
-	 * Enqueue Table of Contents sidebar assets.
-	 */
-	private static function enqueue_toc_assets() {
-		wp_enqueue_style(
-			'docsync-toc',
-			DOCSYNC_URL . 'assets/css/toc.css',
-			[ 'docsync-tokens' ],
-			filemtime( DOCSYNC_PATH . 'assets/css/toc.css' )
-		);
-
-		wp_enqueue_script(
-			'docsync-toc',
-			DOCSYNC_URL . 'assets/js/docsync-toc.js',
-			[],
-			filemtime( DOCSYNC_PATH . 'assets/js/docsync-toc.js' ),
-			true
 		);
 	}
 }
