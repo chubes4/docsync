@@ -1,10 +1,10 @@
 # Template Integration
 
-This guide covers how the `chubes-docs` plugin integrates with the `chubes` theme.
+This guide covers how the `docsync` plugin integrates with the `chubes` theme.
 
 ## What The Plugin Owns
 
-`chubes-docs` registers:
+`docsync` registers:
 
 - The `documentation` post type
 - The `project` taxonomy
@@ -34,14 +34,14 @@ The plugin doesn’t provide WordPress template files to override. Instead it ho
 
 ## Helper Functions
 
-Defined in `chubes-docs/chubes-docs.php`:
+Defined in `docsync/docsync.php`:
 
-- `chubes_get_repository_info( $term_or_terms )` is a wrapper for `ChubesDocs\Core\Project::get_repository_info()`.
-- `chubes_generate_content_type_url( $post_type, $term )` proxies `ChubesDocs\Templates\ProjectCard::generate_content_type_url()`.
+- `chubes_get_repository_info( $term_or_terms )` is a wrapper for `DocSync\Core\Project::get_repository_info()`.
+- `chubes_generate_content_type_url( $post_type, $term )` proxies `DocSync\Templates\ProjectCard::generate_content_type_url()`.
 
 ## Assets
 
-Frontend CSS is enqueued by the plugin via `chubes-docs/inc/Core/Assets.php`:
+Frontend CSS is enqueued by the plugin via `docsync/inc/Core/Assets.php`:
 
 - `assets/css/archives.css` on documentation/project archive contexts
 - `assets/css/related-posts.css` on single `documentation` posts

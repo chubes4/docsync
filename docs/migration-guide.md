@@ -1,6 +1,6 @@
 # Migration Guide
 
-This guide covers breaking changes and migration steps when upgrading Chubes Docs from version 0.1.x to 0.2.x.
+This guide covers breaking changes and migration steps when upgrading DocSync from version 0.1.x to 0.2.x.
 
 Note: Current plugin version is 0.2.8.
 ## Version 0.2.0 Breaking Changes
@@ -11,7 +11,7 @@ Note: Current plugin version is 0.2.8.
 
 **Before (v0.1.x):**
 ```bash
-curl -X POST /wp-json/chubes/v1/sync/doc \
+curl -X POST /wp-json/docsync/v1/sync/doc \
   -d '{
     "title": "My Doc",
     "content": "# Content",
@@ -22,7 +22,7 @@ curl -X POST /wp-json/chubes/v1/sync/doc \
 **After (v0.2.x):**
 ```bash
 # Step 1: Setup project
-curl -X POST /wp-json/chubes/v1/sync/setup \
+curl -X POST /wp-json/docsync/v1/sync/setup \
   -d '{
     "project_slug": "my-plugin",
     "project_name": "My Plugin",
@@ -31,7 +31,7 @@ curl -X POST /wp-json/chubes/v1/sync/setup \
   }'
 
 # Step 2: Sync document
-curl -X POST /wp-json/chubes/v1/sync/doc \
+curl -X POST /wp-json/docsync/v1/sync/doc \
   -d '{
     "source_file": "README.md",
     "title": "My Doc",
@@ -61,13 +61,13 @@ curl -X POST /wp-json/chubes/v1/sync/doc \
 
 **Before:**
 ```bash
-curl -X POST /wp-json/chubes/v1/codebase/resolve \
+curl -X POST /wp-json/docsync/v1/codebase/resolve \
   -d '{"path": ["wordpress-plugins", "my-plugin", "api"]}'
 ```
 
 **After:**
 ```bash
-curl -X POST /wp-json/chubes/v1/codebase/resolve \
+curl -X POST /wp-json/docsync/v1/codebase/resolve \
   -d '{"path": ["wordpress-plugins", "my-plugin", "api"]}'
 ```
 
@@ -75,7 +75,7 @@ curl -X POST /wp-json/chubes/v1/codebase/resolve \
 
 **Before:**
 ```bash
-curl -X POST /wp-json/chubes/v1/docs \
+curl -X POST /wp-json/docsync/v1/docs \
   -d '{
     "title": "API Docs",
     "content": "...",
@@ -86,14 +86,14 @@ curl -X POST /wp-json/chubes/v1/docs \
 **After:**
 ```bash
 # First resolve/create taxonomy path
-curl -X POST /wp-json/chubes/v1/codebase/resolve \
+curl -X POST /wp-json/docsync/v1/codebase/resolve \
   -d '{
     "path": ["wordpress-plugins", "my-plugin", "api"],
     "create_missing": true
   }'
 
 # Then create documentation
-curl -X POST /wp-json/chubes/v1/docs \
+curl -X POST /wp-json/docsync/v1/docs \
   -d '{
     "title": "API Docs",
     "content": "...",
@@ -116,7 +116,7 @@ const syncData = {
 };
 
 // After
-const setupResponse = await fetch('/wp-json/chubes/v1/sync/setup', {
+const setupResponse = await fetch('/wp-json/docsync/v1/sync/setup', {
   method: 'POST',
   body: JSON.stringify({
     project_slug: "my-plugin",
@@ -145,10 +145,10 @@ Replace string-based paths with array-based paths:
 
 ```bash
 # Before
-curl /wp-json/chubes/v1/docs?codebase=my-plugin
+curl /wp-json/docsync/v1/docs?codebase=my-plugin
 
 # After (same - slug-based filtering still works)
-curl /wp-json/chubes/v1/docs?codebase=my-plugin
+curl /wp-json/docsync/v1/docs?codebase=my-plugin
 ```
 
 ### 3. Update Batch Operations
@@ -179,12 +179,12 @@ Update GitHub Actions or other automation:
 - name: Sync Documentation
   run: |
     # Get project term ID
-    SETUP_RESPONSE=$(curl -s /wp-json/chubes/v1/sync/setup \
+    SETUP_RESPONSE=$(curl -s /wp-json/docsync/v1/sync/setup \
       -d '{"project_slug":"my-plugin","project_name":"My Plugin","category_slug":"wordpress-plugins","category_name":"WordPress Plugins"}')
     PROJECT_TERM_ID=$(echo $SETUP_RESPONSE | jq -r '.project_term_id')
 
     # Sync documents
-    curl /wp-json/chubes/v1/sync/batch \
+    curl /wp-json/docsync/v1/sync/batch \
       -d "{\"docs\": [{\"source_file\":\"README.md\",\"title\":\"README\",\"content\":\"...\",\"project_term_id\":$PROJECT_TERM_ID,\"filesize\":1024,\"timestamp\":\"$(date -Iseconds)\"}]}"
 ```
 

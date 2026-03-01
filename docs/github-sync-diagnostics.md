@@ -6,7 +6,7 @@ For the full endpoint list, see [API Reference](api-reference.md).
 
 ## Endpoints
 
-### GET /wp-json/chubes/v1/sync/test-token
+### GET /wp-json/docsync/v1/sync/test-token
 
 Test the configured GitHub Personal Access Token (PAT).
 
@@ -16,7 +16,7 @@ Test the configured GitHub Personal Access Token (PAT).
   - `400 no_token` when no PAT is configured
   - `500 connection_failed` when the GitHub API request fails
 
-### POST /wp-json/chubes/v1/sync/test-repo
+### POST /wp-json/docsync/v1/sync/test-repo
 
 Test access to a repository URL.
 
@@ -30,7 +30,7 @@ Test access to a repository URL.
 
 ## Manual GitHub Sync
 
-### POST /wp-json/chubes/v1/sync/all
+### POST /wp-json/docsync/v1/sync/all
 
 Run GitHub sync across all project terms that have a GitHub URL configured.
 
@@ -47,7 +47,7 @@ Run GitHub sync across all project terms that have a GitHub URL configured.
   }
   ```
 
-### POST /wp-json/chubes/v1/sync/term/{id}
+### POST /wp-json/docsync/v1/sync/term/{id}
 
 Run GitHub sync for a single project term.
 

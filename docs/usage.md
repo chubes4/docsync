@@ -40,31 +40,31 @@ For exact request/response shapes and permissions, see the [API Reference](api-r
 
 ### Endpoints (Summary)
 
-All endpoints use the `chubes/v1` namespace.
+All endpoints use the `docsync/v1` namespace.
 
 #### Documentation
-- `GET /wp-json/chubes/v1/docs` - List documentation posts
-- `POST /wp-json/chubes/v1/docs` - Create new documentation
-- `GET /wp-json/chubes/v1/docs/{id}` - Get specific documentation
-- `PUT /wp-json/chubes/v1/docs/{id}` - Update documentation
-- `DELETE /wp-json/chubes/v1/docs/{id}` - Delete documentation
+- `GET /wp-json/docsync/v1/docs` - List documentation posts
+- `POST /wp-json/docsync/v1/docs` - Create new documentation
+- `GET /wp-json/docsync/v1/docs/{id}` - Get specific documentation
+- `PUT /wp-json/docsync/v1/docs/{id}` - Update documentation
+- `DELETE /wp-json/docsync/v1/docs/{id}` - Delete documentation
 
 #### Project Taxonomy
-- `GET /wp-json/chubes/v1/project` - List project taxonomy terms
-- `GET /wp-json/chubes/v1/project/tree` - Get hierarchical project tree
-- `POST /wp-json/chubes/v1/project/resolve` - Resolve or create taxonomy path
-- `GET /wp-json/chubes/v1/project/{id}` - Get specific taxonomy term
-- `PUT /wp-json/chubes/v1/project/{id}` - Update taxonomy term
+- `GET /wp-json/docsync/v1/project` - List project taxonomy terms
+- `GET /wp-json/docsync/v1/project/tree` - Get hierarchical project tree
+- `POST /wp-json/docsync/v1/project/resolve` - Resolve or create taxonomy path
+- `GET /wp-json/docsync/v1/project/{id}` - Get specific taxonomy term
+- `PUT /wp-json/docsync/v1/project/{id}` - Update taxonomy term
 
 #### Sync Operations
-- `POST /wp-json/chubes/v1/sync/setup` - Setup project + category terms
-- `GET /wp-json/chubes/v1/sync/status` - Get sync status for a project
-- `POST /wp-json/chubes/v1/sync/doc` - Sync a single document
-- `POST /wp-json/chubes/v1/sync/batch` - Batch sync documents
-- `POST /wp-json/chubes/v1/sync/all` - Manually sync GitHub docs for all projects
-- `POST /wp-json/chubes/v1/sync/term/{id}` - Manually sync GitHub docs for a term
-- `GET /wp-json/chubes/v1/sync/test-token` - GitHub token diagnostics
-- `POST /wp-json/chubes/v1/sync/test-repo` - GitHub repo diagnostics (`repo_url`)
+- `POST /wp-json/docsync/v1/sync/setup` - Setup project + category terms
+- `GET /wp-json/docsync/v1/sync/status` - Get sync status for a project
+- `POST /wp-json/docsync/v1/sync/doc` - Sync a single document
+- `POST /wp-json/docsync/v1/sync/batch` - Batch sync documents
+- `POST /wp-json/docsync/v1/sync/all` - Manually sync GitHub docs for all projects
+- `POST /wp-json/docsync/v1/sync/term/{id}` - Manually sync GitHub docs for a term
+- `GET /wp-json/docsync/v1/sync/test-token` - GitHub token diagnostics
+- `POST /wp-json/docsync/v1/sync/test-repo` - GitHub repo diagnostics (`repo_url`)
 ### Parameters
 
 See [API Reference](api-reference.md) for complete parameter documentation.
@@ -182,8 +182,8 @@ Monitor sync operations:
 
 ```bash
 # Get sync status for a project
-curl /wp-json/chubes/v1/sync/status?project=my-plugin
+curl /wp-json/docsync/v1/sync/status?project=my-plugin
 
 # List recent documentation
-curl /wp-json/chubes/v1/docs?project=my-plugin&per_page=10
+curl /wp-json/docsync/v1/docs?project=my-plugin&per_page=10
 ```

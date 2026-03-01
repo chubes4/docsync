@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-This guide helps you diagnose and resolve common issues with the Chubes Docs plugin.
+This guide helps you diagnose and resolve common issues with the DocSync plugin.
 
 ## Common Issues
 
@@ -30,7 +30,7 @@ This guide helps you diagnose and resolve common issues with the Chubes Docs plu
 
 **Debug command:**
 ```bash
-curl "/wp-json/chubes/v1/sync/status?project=your-project-slug"
+curl "/wp-json/docsync/v1/sync/status?project=your-project-slug"
 ```
 
 If the request returns `403`, confirm the authenticated user has `edit_posts`.
@@ -49,7 +49,7 @@ If the request returns `403`, confirm the authenticated user has `edit_posts`.
 **Check link resolution:**
 ```bash
 # Get document and check rendered content
-curl /wp-json/chubes/v1/docs/{post_id}
+curl /wp-json/docsync/v1/docs/{post_id}
 ```
 
 ### Performance Issues
@@ -74,7 +74,7 @@ curl /wp-json/chubes/v1/docs/{post_id}
 
 **Verify metadata:**
 ```bash
-curl /wp-json/chubes/v1/codebase/{term_id}
+curl /wp-json/docsync/v1/codebase/{term_id}
 ```
 
 ## Debug Mode
@@ -100,7 +100,7 @@ Check logs at `/wp-content/debug.log` for:
 
 Include debug headers in API responses:
 ```bash
-curl -H "X-Debug: true" /wp-json/chubes/v1/docs
+curl -H "X-Debug: true" /wp-json/docsync/v1/docs
 ```
 
 ## Diagnostic Commands
@@ -108,10 +108,10 @@ curl -H "X-Debug: true" /wp-json/chubes/v1/docs
 ### Check Plugin Status
 ```bash
 # Verify plugin is active
-wp plugin status chubes-docs
+wp plugin status docsync
 
 # Check for plugin errors
-wp plugin verify-checksums chubes-docs
+wp plugin verify-checksums docsync
 ```
 
 ### Database Integrity
@@ -126,10 +126,10 @@ wp term list codebase --format=table
 ### API Connectivity
 ```bash
 # Test basic API connectivity
-curl -I /wp-json/chubes/v1/
+curl -I /wp-json/docsync/v1/
 
 # Test authentication
-curl -u "username:password" /wp-json/chubes/v1/docs
+curl -u "username:password" /wp-json/docsync/v1/docs
 ```
 
 ## Recovery Procedures
@@ -146,7 +146,7 @@ wp term delete codebase $(wp term list codebase --field=term_id)
 ### Rebuild Taxonomy Hierarchy
 ```bash
 # Recreate project structure
-curl -X POST /wp-json/chubes/v1/sync/setup \
+curl -X POST /wp-json/docsync/v1/sync/setup \
   -d '{
     "project_slug": "my-project",
     "project_name": "My Project",

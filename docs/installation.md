@@ -17,7 +17,7 @@
 2. Download the plugin ZIP file from the releases page
 3. In WordPress admin, go to Plugins > Add New
 4. Click "Upload Plugin"
-5. Upload the `chubes-docs.zip` file
+5. Upload the `docsync.zip` file
 6. Activate the plugin
 
 ## Development Setup

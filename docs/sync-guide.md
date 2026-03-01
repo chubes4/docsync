@@ -1,6 +1,6 @@
 # Sync Guide
 
-This guide explains how to use the Chubes Docs synchronization system.
+This guide explains how to use the DocSync synchronization system.
 
 For exact request/response shapes and permissions, see the [API Reference](api-reference.md).
 
@@ -28,7 +28,7 @@ The sync system allows you to automatically import documentation from external r
 Before syncing documentation, set up the project structure using the new `/sync/setup` endpoint:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/sync/setup \
+curl -X POST /wp-json/docsync/v1/sync/setup \
   -H "Content-Type: application/json" \
   -d '{
     "project_slug": "my-plugin",
@@ -56,7 +56,7 @@ This creates the taxonomy hierarchy and returns the `project_term_id` needed for
 Associate repository information with your project:
 
 ```bash
-curl -X PUT /wp-json/chubes/v1/project/{project_term_id} \
+curl -X PUT /wp-json/docsync/v1/project/{project_term_id} \
   -H "Content-Type: application/json" \
   -d '{
     "meta": {
@@ -74,7 +74,7 @@ curl -X PUT /wp-json/chubes/v1/project/{project_term_id} \
 Import individual documentation files using the enhanced sync endpoint:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/sync/doc \
+curl -X POST /wp-json/docsync/v1/sync/doc \
   -H "Content-Type: application/json" \
   -d '{
     "source_file": "docs/README.md",
@@ -104,7 +104,7 @@ curl -X POST /wp-json/chubes/v1/sync/doc \
 Import multiple documents at once with the enhanced batch endpoint:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/sync/batch \
+curl -X POST /wp-json/docsync/v1/sync/batch \
   -H "Content-Type: application/json" \
   -d '{
     "docs": [
@@ -137,7 +137,7 @@ curl -X POST /wp-json/chubes/v1/sync/batch \
 The sync system assigns taxonomy based on `project_term_id` and `subpath`. Subpath segments are resolved under the project term (and created as needed by the sync manager).
 ```bash
 # Assign under: wordpress-plugins/my-plugin/guides/installation
-curl -X POST /wp-json/chubes/v1/sync/doc \
+curl -X POST /wp-json/docsync/v1/sync/doc \
   -d '{
     "source_file": "docs/installation.md",
     "title": "Installation Guide",
@@ -154,7 +154,7 @@ curl -X POST /wp-json/chubes/v1/sync/doc \
 Resolve taxonomy paths manually using the project API:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/project/resolve \
+curl -X POST /wp-json/docsync/v1/project/resolve \
   -H "Content-Type: application/json" \
   -d '{
     "path": ["wordpress-plugins", "my-plugin", "api", "v1"],
@@ -203,7 +203,7 @@ Internal `.md` links are automatically converted to WordPress URLs:
 Check sync status and progress for a specific project:
 
 ```bash
-curl /wp-json/chubes/v1/sync/status?project=my-plugin
+curl /wp-json/docsync/v1/sync/status?project=my-plugin
 ```
 
 Response:
@@ -230,10 +230,10 @@ Response:
 
 These endpoints support validating GitHub access and manually running the GitHub-based sync.
 
-- `GET /wp-json/chubes/v1/sync/test-token` (requires `manage_options`)
-- `POST /wp-json/chubes/v1/sync/test-repo` with `{ "repo_url": "https://github.com/owner/repo" }` (requires `manage_options`)
-- `POST /wp-json/chubes/v1/sync/all` (requires `manage_options`)
-- `POST /wp-json/chubes/v1/sync/term/{id}` (requires `manage_options`)
+- `GET /wp-json/docsync/v1/sync/test-token` (requires `manage_options`)
+- `POST /wp-json/docsync/v1/sync/test-repo` with `{ "repo_url": "https://github.com/owner/repo" }` (requires `manage_options`)
+- `POST /wp-json/docsync/v1/sync/all` (requires `manage_options`)
+- `POST /wp-json/docsync/v1/sync/term/{id}` (requires `manage_options`)
 
 For response shapes and parameters, see [API Reference](api-reference.md) or [GitHub Sync Diagnostics](github-sync-diagnostics.md).
 
@@ -318,7 +318,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Sync Docs
         run: |
-          curl -X POST ${{ secrets.WP_SYNC_URL }}/wp-json/chubes/v1/sync/batch \
+          curl -X POST ${{ secrets.WP_SYNC_URL }}/wp-json/docsync/v1/sync/batch \
             -H "Authorization: Bearer ${{ secrets.WP_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d @docs-sync-payload.json
@@ -344,7 +344,7 @@ async function syncDocs() {
     subpath: ['guides']
   }));
 
-  const response = await fetch('/wp-json/chubes/v1/sync/batch', {
+  const response = await fetch('/wp-json/docsync/v1/sync/batch', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ docs })

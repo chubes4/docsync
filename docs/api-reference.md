@@ -1,11 +1,11 @@
 # API Reference
 
-This document provides comprehensive documentation for all REST API endpoints provided by the Chubes Docs plugin.
+This document provides comprehensive documentation for all REST API endpoints provided by the DocSync plugin.
 
 For workflows (non-authoritative examples), see the [Sync Guide](sync-guide.md). For GitHub diagnostics/manual sync, see [GitHub Sync Diagnostics](github-sync-diagnostics.md).
 ## Base URL
 
-All endpoints use the base URL: `/wp-json/chubes/v1/`
+All endpoints use the base URL: `/wp-json/docsync/v1/`
 
 ## Authentication
 

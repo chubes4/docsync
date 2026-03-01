@@ -1,6 +1,6 @@
 # Development Guide
 
-This guide covers development workflows, build processes, and coding standards for the Chubes Docs plugin.
+This guide covers development workflows, build processes, and coding standards for the DocSync plugin.
 
 ## Development Environment
 
@@ -8,8 +8,8 @@ This guide covers development workflows, build processes, and coding standards f
 
 1. **Clone repository:**
    ```bash
-   git clone https://github.com/chubes4/chubes-docs.git
-   cd chubes-docs
+   git clone https://github.com/chubes4/docsync.git
+   cd docsync
    ```
 
 2. **Install dependencies:**
@@ -20,7 +20,7 @@ This guide covers development workflows, build processes, and coding standards f
 3. **WordPress setup:**
    - Use testing-grounds.local (multisite WordPress installation)
    - Activate the Chubes theme
-   - Activate the Chubes Docs plugin
+   - Activate the DocSync plugin
 
 ### Development Workflow
 
@@ -216,11 +216,11 @@ $terms = get_the_terms($post_id, Project::TAXONOMY);
 
 ```bash
 # Test endpoint
-curl -X GET /wp-json/chubes/v1/docs \
+curl -X GET /wp-json/docsync/v1/docs \
   -H "Authorization: Bearer {token}"
 
 # Test with data
-curl -X POST /wp-json/chubes/v1/sync/setup \
+curl -X POST /wp-json/docsync/v1/sync/setup \
   -H "Content-Type: application/json" \
   -d '{"project_slug":"test","project_name":"Test","category_slug":"test","category_name":"Test"}'
 ```
@@ -263,7 +263,7 @@ error_log('Debug message: ' . print_r($variable, true));
 ### API Debug Headers
 
 ```bash
-curl -H "X-Debug: true" /wp-json/chubes/v1/docs
+curl -H "X-Debug: true" /wp-json/docsync/v1/docs
 ```
 
 ## Performance Optimization

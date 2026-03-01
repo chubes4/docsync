@@ -1,12 +1,12 @@
 # Taxonomy Management
 
-This guide covers the taxonomy system used to organize documentation in Chubes Docs.
+This guide covers the taxonomy system used to organize documentation in DocSync.
 
 For API endpoint details, see the [API Reference](api-reference.md).
 
 ## Overview
 
-Chubes Docs uses two taxonomies to organize documentation:
+DocSync uses two taxonomies to organize documentation:
 
 - **`project`** taxonomy: Hierarchical system for organizing documentation by project structure
 - **`project_type`** taxonomy: Non-hierarchical system for categorizing project types
@@ -25,7 +25,7 @@ Project types are stored as term meta on project terms (depth 0 in the `project`
 
 ```bash
 # Set project type for a project term
-curl -X PUT /wp-json/chubes/v1/project/{project_term_id} \
+curl -X PUT /wp-json/docsync/v1/project/{project_term_id} \
   -H "Content-Type: application/json" \
   -d '{
     "meta": {
@@ -58,7 +58,7 @@ The REST API does not provide an endpoint to create arbitrary project terms dire
 Automatically create hierarchical paths:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/project/resolve \
+curl -X POST /wp-json/docsync/v1/project/resolve \
   -H "Content-Type: application/json" \
   -d '{
     "path": ["my-plugin", "api", "endpoints"],
@@ -76,7 +76,7 @@ Permissions note: `POST /project/resolve` is public when `create_missing` is `fa
 ### Updating Terms
 
 ```bash
-curl -X PUT /wp-json/chubes/v1/project/{term_id} \
+curl -X PUT /wp-json/docsync/v1/project/{term_id} \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Updated Plugin Name",
@@ -93,16 +93,16 @@ curl -X PUT /wp-json/chubes/v1/project/{term_id} \
 
 ```bash
 # Get all terms
-curl /wp-json/chubes/v1/project
+curl /wp-json/docsync/v1/project
 
 # Get hierarchical tree
-curl /wp-json/chubes/v1/project/tree
+curl /wp-json/docsync/v1/project/tree
 
 # Filter by parent
-curl /wp-json/chubes/v1/project?parent=5
+curl /wp-json/docsync/v1/project?parent=5
 
 # Hide empty terms
-curl "/wp-json/chubes/v1/project?hide_empty=true"
+curl "/wp-json/docsync/v1/project?hide_empty=true"
 ```
 
 ## Repository Metadata
@@ -128,13 +128,13 @@ The plugin automatically fetches metadata from APIs:
 
 ### Manual Metadata Updates
 
-`PUT /wp-json/chubes/v1/project/{id}` only persists:
+`PUT /wp-json/docsync/v1/project/{id}` only persists:
 
 - `meta.github_url` → `project_github_url`
 - `meta.wp_url` → `project_wp_url`
 
 ```bash
-curl -X PUT /wp-json/chubes/v1/project/{project_term_id} \
+curl -X PUT /wp-json/docsync/v1/project/{project_term_id} \
   -H "Content-Type: application/json" \
   -d '{
     "meta": {
@@ -151,7 +151,7 @@ curl -X PUT /wp-json/chubes/v1/project/{project_term_id} \
 When creating documentation via API:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/docs \
+curl -X POST /wp-json/docsync/v1/docs \
   -H "Content-Type: application/json" \
   -d '{
     "title": "API Documentation",
@@ -167,7 +167,7 @@ The `project_path` parameter automatically resolves to the appropriate taxonomy 
 The sync system uses taxonomy paths for organization:
 
 ```bash
-curl -X POST /wp-json/chubes/v1/sync/doc \
+curl -X POST /wp-json/docsync/v1/sync/doc \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Installation Guide",
@@ -277,7 +277,7 @@ Remove unused terms:
 
 ```bash
 # Find empty terms
-curl /wp-json/chubes/v1/project?hide_empty=0
+curl /wp-json/docsync/v1/project?hide_empty=0
 
 # Manual cleanup (use WordPress admin or custom script)
 ```
@@ -293,7 +293,7 @@ Add custom fields to taxonomy terms:
 update_term_meta($term_id, 'custom_field', 'value');
 
 // Via API
-curl -X PUT /wp-json/chubes/v1/project/{id} \
+curl -X PUT /wp-json/docsync/v1/project/{id} \
   -d '{"meta": {"custom_field": "value"}}'
 ```
 
@@ -323,7 +323,7 @@ Update multiple terms:
 
 ```bash
 # Get all project terms
-curl /wp-json/chubes/v1/project?hide_empty=0
+curl /wp-json/docsync/v1/project?hide_empty=0
 
 # Batch update metadata
 # (Implement custom endpoint or use multiple PUT requests)
