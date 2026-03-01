@@ -10,7 +10,6 @@
 	display: grid;
 	grid-template-columns: 1fr 260px;
 	gap: var(--docsync-space-xl, 2rem);
-	align-items: start;
 }
 
 .docsync-doc-content {
