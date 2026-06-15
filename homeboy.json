@@ -1,5 +1,21 @@
 {
+  "auto_cleanup": false,
+  "changelog_target": "docs/CHANGELOG.md",
+  "extensions": {
+    "wordpress": {}
+  },
   "id": "docsync",
   "name": "DocSync",
-  "source_path": "."
+  "remote_path": "wp-content/plugins/docsync",
+  "source_path": ".",
+  "version_targets": [
+    {
+      "file": "docsync.php",
+      "pattern": "(?m)^\\s*\\*?\\s*Version:\\s*([0-9.]+)"
+    },
+    {
+      "file": "docsync.php",
+      "pattern": "(?m)DOCSYNC_VERSION',\\s*'([0-9.]+)'"
+    }
+  ]
 }
