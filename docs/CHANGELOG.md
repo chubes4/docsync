@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-07-13
+
+### Fixed
+- Reset project sync status to `success` when a repo has no changes. Previously the no-changes early return left `project_sync_status` stuck on `syncing` indefinitely for up-to-date projects, even though the sync completed successfully. ([#57](https://github.com/chubes4/docsync/issues/57))
+
 ## [1.2.0] - 2026-06-15
 
 ### Changed

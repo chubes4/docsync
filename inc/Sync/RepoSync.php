@@ -91,6 +91,7 @@ class RepoSync {
 		if ( $old_sha === $new_sha ) {
 			$result['success'] = true;
 			$result['error'] = 'No changes detected';
+			$this->update_sync_status( $term_id, 'success' );
 			return $result;
 		}
 
